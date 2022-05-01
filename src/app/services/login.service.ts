@@ -16,6 +16,9 @@ export class LoginService {
   login(form){
     return this.httpClient.post(this.serverUrl+'login',form);
   }
+  loginStudent(form){
+    return this.httpClient.post(this.serverUrl+'student/login',form);
+  }
 }
 
 

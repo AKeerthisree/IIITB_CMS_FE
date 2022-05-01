@@ -35,6 +35,31 @@ import { AdminComponent } from './MyComponents/admin/admin.component';
 import { AddStudentComponent } from './MyComponents/add-student/add-student.component';
 import { AddEmployeeComponent } from './MyComponents/add-employee/add-employee.component';
 import { SearchfilterPipe } from './MyComponents/searchfilter.pipe';
+import { AdminStudentComponent } from './MyComponents/admin-student/admin-student.component';
+import { SACComplaintsComponent } from './MyComponents/sac-complaints/sac-complaints.component';
+import { AdminComplaintsComponent } from './MyComponents/admin-complaints/admin-complaints.component';
+import { AdminEmployeesComponent } from './MyComponents/admin-employees/admin-employees.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+
+import { MatMenuModule } from '@angular/material/menu';
+import { MatListModule } from '@angular/material/list';
+//import { NavComponent } from './nav/nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { NavComponent } from './MyComponents/nav/nav.component';
+import { StudentDashboardComponent } from './MyComponents/student-dashboard/student-dashboard.component';
+import { StudentLoginComponent } from './MyComponents/student-login/student-login.component';
+import { EditStudentComponent } from './MyComponents/edit-student/edit-student.component';
+import { EditEmpployeeComponent } from './MyComponents/edit-empployee/edit-empployee.component';
+import { SolveComplaintComponent } from './MyComponents/solve-complaint/solve-complaint.component';
+import { FoodComComplaintsComponent } from './MyComponents/food-com-complaints/food-com-complaints.component';
+import { PlaceComComplaintsComponent } from './MyComponents/place-com-complaints/place-com-complaints.component';
+import { SportsComplaintsComponent } from './MyComponents/sports-complaints/sports-complaints.component';
+import { HostelComplaintsComponent } from './MyComponents/hostel-complaints/hostel-complaints.component';
+import { ExamComplaintsComponent } from './MyComponents/exam-complaints/exam-complaints.component';
+import { HomeComponent } from './MyComponents/home/home.component';
+import { AboutUsComponent } from './MyComponents/about-us/about-us.component';
+//import { NavComponent } from './MyComponents/nav/nav.component';
+
 
 @NgModule({
   declarations: [
@@ -43,7 +68,27 @@ import { SearchfilterPipe } from './MyComponents/searchfilter.pipe';
     AdminComponent,
     AddStudentComponent,
     AddEmployeeComponent,
-    SearchfilterPipe
+    SearchfilterPipe,
+    AdminStudentComponent,
+    SACComplaintsComponent,
+    AdminComplaintsComponent,
+    AdminEmployeesComponent,
+    NavComponent,
+    StudentDashboardComponent,
+    StudentLoginComponent,
+    EditStudentComponent,
+    EditEmpployeeComponent,
+    SolveComplaintComponent,
+    FoodComComplaintsComponent,
+    PlaceComComplaintsComponent,
+    SportsComplaintsComponent,
+    HostelComplaintsComponent,
+    ExamComplaintsComponent,
+    HomeComponent,
+    AboutUsComponent,
+    //NavComponent,
+   // NavComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -74,6 +119,10 @@ import { SearchfilterPipe } from './MyComponents/searchfilter.pipe';
     ReactiveFormsModule,
     MatTabsModule,
     MatIconModule,
+    MatMenuModule,
+    MatListModule,
+    LayoutModule,
+    MatSidenavModule
  
     
   ],

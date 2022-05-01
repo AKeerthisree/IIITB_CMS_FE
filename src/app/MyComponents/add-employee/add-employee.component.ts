@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/services/admin.service';
@@ -13,35 +13,49 @@ import { DialogData } from '../login/login.component';
 })
 export class AddEmployeeComponent implements OnInit {
 
-  employee:Employee=new Employee();
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  empDetail !: FormGroup;
+  empObj : Employee = new Employee();
+  empList : Employee[] = []
+  searchText : string;
+  
   constructor(
-    private router: Router,
-    private adminService:AdminService,
-    private dialog:MatDialog,
-  ) {
-    this.employee=new Employee();
-   }
+    private formBuilder: FormBuilder,
+    private adminService: AdminService,
+    private router:Router,
+    public dialog:MatDialog) { }
 
   ngOnInit(): void {
+    this.empDetail = this.formBuilder.group({
+      id:[''],
+      name: [''],
+      password: [''],
+      email: [''],
+      // phone: [''],
+      role:['']
+    })
   }
-
-  saveEmployeeDetails()
-  {
-    this.employee.password=this.employee.id;
-    this.adminService.saveEmployee(this.employee).subscribe(
-      (res)=>{
-        console.log(res);
-        this.openDialog(true);
-      },
-      err=>{
+    
+  addEmployee(){
+    console.log(this.empDetail);
+    this.empObj.id=this.empDetail.value.id;
+    this.empObj.name=this.empDetail.value.name;
+    this.empObj.email=this.empDetail.value.email;
+    // this.empObj.phone=this.empDetail.value.phone;
+    this.empObj.role=this.empDetail.value.role;
+    this.empObj.password=this.empDetail.value.name;
+    
+    this.adminService.saveEmployee(this.empObj).subscribe(res=>{
+      console.log(res);
+      this.openDialog(true);
+     
+    },err=>{
         console.log(err);
         this.openDialog(false);
-      }
-    )
+    });
   }
-  
+
   openDialog(response) {
+   
     if(response)
     {
       this.dialog.open(DialogElementsExampleDialog);
@@ -52,6 +66,7 @@ export class AddEmployeeComponent implements OnInit {
         data: {}
       });
     }
+    
   }
 
   logout(){
@@ -66,12 +81,13 @@ export class AddEmployeeComponent implements OnInit {
 })
 export class DialogElementsExampleDialog { 
   constructor(
+    private router:Router,
     public dialogRef: MatDialogRef<DialogElementsExampleDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ){}
   close(){
     this.dialogRef.close();
-    window.location.reload();
+    this.router.navigateByUrl('/nav/adminEmployees')
   }
   
 }
@@ -82,11 +98,12 @@ export class DialogElementsExampleDialog {
 })
 export class DialogUnsuccess { 
   constructor(
+    private router:Router,
     public dialogRef: MatDialogRef<DialogUnsuccess>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ){}
   close(){
     this.dialogRef.close();
-    window.location.reload();
+    this.router.navigateByUrl('/nav/adminEmployees')
   }
 }

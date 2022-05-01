@@ -1,0 +1,149 @@
+<p class="h2"> HELLO {{student.name}}</p>
+
+<div class="container-fluid">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">COMPLAINTS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addComplaint"
+                    type="submit">Add Complaint</button>
+            </div>
+        </div>
+        
+        <div>
+            <button type="submit"  class="btn btn-primary" style="margin-right: 3%;" (click)="getComplaints_Student()">Show All</button>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="logout()">LOGOUT</button>
+      </div>
+    </nav>
+    <div class="form-group">
+        <input type="text" class="form-control search-field" placeholder="Search Here"
+        [(ngModel)]="searchText">
+    </div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Complaint ID</th>
+            <th scope="col">Complaint Message</th>
+            <th scope="col">Complaint Type</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Response</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let complaint of complaintList | searchfilter: searchText">
+            <td>{{complaint.id}}</td>
+            <td>{{complaint.description}}</td>
+            <td>{{complaint.complaintType}}</td>
+            <td>{{complaint.timeStamp}}</td> 
+            <td>{{complaint.status}}</td>
+            <td>{{complaint.response}}</td>
+
+           <td>
+                <!-- <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal"
+                    data-bs-target="#editComplaint" (click)="editComplaint(complaint)">EDIT</button> -->
+                <!-- <button type="submit"  class="btn btn-primary" (click)="editComplaint(complaint)">EDIT</button> -->
+                
+                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#editComplaint" (click)="editComplaint(complaint)"
+                type="submit">Edit Complaint</button>
+               
+            </td>
+
+        </tr>
+
+    </tbody>
+</table>
+
+
+<!-- ADD COMPLAINT -->
+<div class="modal fade" id="addComplaint" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">ADD COMPLAINT</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form [formGroup]="complaintDetail">
+                    <!-- <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Complaint ID. </label>
+                        <input type="text" formControlName="id" class="form-control" id="id"
+                            aria-describedby="emailHelp">
+                    </div> -->
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Complaint Type </label>
+                        <input type="text" formControlName="complaintType" class="form-control" id="complaintType"
+                            aria-describedby="emailHelp">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Complaint Message. </label>
+                        <input type="text" formControlName="description" class="form-control" id="description"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Status </label>
+                        <input type="text" formControlName="status" class="form-control" id="status"
+                            aria-describedby="emailHelp">
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-success" (click)="addComplaint()"
+                            data-bs-dismiss="modal">SUBMIT </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!-- EDIT COMPLAINT -->
+ <div class="modal fade" id="editComplaint" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">EDIT COMPLAINT</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            <form [formGroup]="complaintDetail">
+              
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Complaint Type </label>
+                    <input type="text" formControlName="complaintType" class="form-control" id="complaintType"
+                        aria-describedby="emailHelp">
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Complaint Message. </label>
+                    <input type="text" formControlName="description" class="form-control" id="description"
+                        aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Status </label>
+                    <input type="text" formControlName="status" class="form-control" id="status"
+                        aria-describedby="emailHelp">
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-success" (click)="updateComplaint()"
+                        data-bs-dismiss="modal">SUBMIT </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+</div> 

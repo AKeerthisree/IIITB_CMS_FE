@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Employee } from '../details/Employee';
 import { AdminService } from 'src/app/services/admin.service';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { MatSidenav } from '@angular/material/sidenav';
+import { delay, filter } from 'rxjs/operators';
+import { NavigationEnd } from '@angular/router';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @Component({
   selector: 'app-admin',
@@ -11,95 +16,39 @@ import { AdminService } from 'src/app/services/admin.service';
 })
 export class AdminComponent implements OnInit {
 
-  empDetail !: FormGroup;
-  empObj : Employee = new Employee();
-  empList : Employee[] = []
-  searchText : string;
+  @ViewChild(MatSidenav)
+  sidenav!: MatSidenav;
+
+  constructor(private observer: BreakpointObserver, private router: Router) {}
+  ngOnInit() {
   
-  constructor(
-    private formBuilder: FormBuilder,
-    private adminService: AdminService,
-    private router:Router) { }
-
-  ngOnInit(): void {
-    this.empDetail = this.formBuilder.group({
-      id:[''],
-      name: [''],
-      password: [''],
-      email: [''],
-      // phone: [''],
-      role:['']
-    })
-    this.getAllEmployee();
   }
-  addEmployee(){
-    console.log(this.empDetail);
-    this.empObj.id=this.empDetail.value.id;
-    this.empObj.name=this.empDetail.value.name;
-    this.empObj.email=this.empDetail.value.email;
-    // this.empObj.phone=this.empDetail.value.phone;
-    this.empObj.role=this.empDetail.value.role;
-    this.empObj.password=this.empDetail.value.name;
-    
-    this.adminService.saveEmployee(this.empObj).subscribe(res=>{
-      console.log(res);
-      this.getAllEmployee();
-    },err=>{
-        console.log(err);
-    });
-}
 
-getAllEmployee() {
-  this.adminService.getAllEmployee().subscribe(res=>{
-      this.empList = res;
-  },err=>{
-    console.log("error while fetching data.")
-  });
-}
+  ngAfterViewInit() {
+    this.observer
+      .observe(['(max-width: 800px)'])
+      .pipe(delay(1), untilDestroyed(this))
+      .subscribe((res) => {
+        if (res.matches) {
+          this.sidenav.mode = 'over';
+          this.sidenav.close();
+        } else {
+          this.sidenav.mode = 'side';
+          this.sidenav.open();
+        }
+      });
 
-editEmployee(emp : Employee) {
-  this.empDetail.controls['id'].setValue(emp.id);
-  this.empDetail.controls['name'].setValue(emp.name);
-  this.empDetail.controls['email'].setValue(emp.email);
-  //this.empDetail.controls['phone'].setValue(emp.phone);
-  this.empDetail.controls['role'].setValue(emp.role);
-  this.empDetail.controls['password'].setValue(emp.id);
-
-}
-
-updateEmployee() {
-
-  this.empObj.id = this.empDetail.value.id;
-  this.empObj.name = this.empDetail.value.name;
- // this.empObj.phone = this.empDetail.value.phone;
-  this.empObj.email = this.empDetail.value.email;
-  this.empObj.role = this.empDetail.value.role;
-  this.empObj.password=this.empDetail.value.password;
-
-  this.adminService.updateEmployee(this.empObj).subscribe(res=>{
-    console.log(res);
-    this.getAllEmployee();
-  },err=>{
-    console.log(err);
-  })
-
-}
-
-deleteEmployee(emp : Employee) {
-
-  this.adminService.deleteEmployee(emp).subscribe(res=>{
-    console.log(res);
-    alert('Employee deleted successfully');
-    this.getAllEmployee();
-  },err => {
-    console.log(err);
-  });
-
-}
-
-logout(){
-  this.router.navigateByUrl('/login')
-}
-
+    this.router.events
+      .pipe(
+        untilDestroyed(this),
+        filter((e) => e instanceof NavigationEnd)
+      )
+      .subscribe(() => {
+        if (this.sidenav.mode === 'over') {
+          this.sidenav.close();
+        }
+      });
+  }
+  
 
 }

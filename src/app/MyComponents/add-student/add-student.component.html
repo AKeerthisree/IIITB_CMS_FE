@@ -1,96 +1,45 @@
-<mat-card class="example-card">
-  <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div>
-        ADD STUDENT
-      </div>
-      <div style="margin-right: 100%">
-        <button class="submit" style="margin-right: 50%;" color="primary" mat-raised-button (click)="logout()">LOGOUT</button>
-     </div>
-  </nav> -->
-  <mat-toolbar>
-    <span>ADD STUDENT</span>
-    <span class="example-spacer"></span>
-    <button class="submit" color="primary" mat-raised-button (click)="logout()">
-      LOGOUT
-    </button>
-  </mat-toolbar>
-      
-  <mat-card-content>
-     
-          <form #Form="ngForm"  class="form">
-    
-            <div class="viewForm">
-                <table class="single">
-                <tr>
-                    <td>
-                    <mat-form-field appearance="outline"class="single">
-                        <mat-label>RollNo. <ng-content select="selector"></ng-content></mat-label>
-                        <input #rollNo="ngModel" [(ngModel)]="student.rollNo"  matInput name="rollNo" placeholder="Enter id" required type="text">
-                    </mat-form-field>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                    <mat-form-field appearance="outline"class="single">
-                        <mat-label>Student Name</mat-label>
-                        <input #name="ngModel" [(ngModel)]="student.name"   matInput name="StudentName" placeholder="Enter name" required type="text">
-                    </mat-form-field>
-                    </td>
-                </tr>
-                <tr>
-                  <td>
-                  <mat-form-field appearance="outline"class="single">
-                      <mat-label>Email</mat-label>
-                      <input  matInput [formControl]="emailFormControl" type="email" placeholder="Eg: abc@gmail.com" name="Email" [(ngModel)]="student.email">
-                      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                        Please enter a valid email address
-                      </mat-error>
-                      <mat-error *ngIf="emailFormControl.hasError('required')">
-                        Email is <strong>required</strong>
-                      </mat-error>
-                    </mat-form-field>
-                  </td>
-              </tr>
-                <tr>
-                    <td>
-                    <mat-form-field appearance="outline" class="single">
-                        <mat-label>Programme</mat-label>
-                        <input #programme="ngModel" [(ngModel)]="student.programme" matInput name="programme" placeholder="Enter Programme" required type="text">
-                    </mat-form-field>
-                    </td>
-                 </tr>
-                 <tr>
-                    <td>
-                    <mat-form-field appearance="outline" class="single">
-                        <mat-label>roomNo.</mat-label>
-                        <input #roomNo="ngModel" [(ngModel)]="student.roomNo"   matInput name="roomNo"  required type="text">
-                    </mat-form-field>
-                    </td>
-                </tr>
-                <tr>
-                  <td>
-                  <mat-form-field appearance="outline" class="single">
-                      <mat-label>Hostel Name</mat-label>
-                      <input #hostelName="ngModel" [(ngModel)]="student.hostelName"   matInput name="hostelName"  required type="text">
-                  </mat-form-field>
-                  </td>
-              </tr>
-                <tr>
-                    <td colspan="2" align="center">
-                        <button  class="submit" color="primary" (click)="saveStudentDetails()" mat-raised-button>SAVE
-                        </button>
-                    </td>
-                </tr>
-                
-                </table>
-    
-                <br>
-                <mat-divider></mat-divider>
-                <br>
-            </div>
-        </form>  
-       
-
-  </mat-card-content>
-
+<div fxLayoutAlign="center center" fxFlexFill class="main-div">
+    <mat-card fxFlex="25">
+        <mat-toolbar color="primary">ENTER STUDENT DETAILS</mat-toolbar>
+        
+              <form [formGroup]="studentDetail">
+                  <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">RollNo. </label>
+                      <input type="text" formControlName="rollNo" class="form-control" id="rollNo "
+                          aria-describedby="emailHelp">
+                  </div>
+                  <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Name </label>
+                      <input type="text" formControlName="name" class="form-control" id="name"
+                          aria-describedby="emailHelp">
+                  </div>
+                  <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Email </label>
+                      <input type="email" formControlName="email" class="form-control" id="email"
+                          aria-describedby="emailHelp">
+                  </div>
+                  <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Programme</label>
+                      <input type="text" formControlName="programme" class="form-control" id="programme"
+                          aria-describedby="emailHelp">
+                  </div>
+                  <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">roomNo</label>
+                      <input type="text" formControlName="roomNo" class="form-control" id="roomNo"
+                          aria-describeddescribedby="emailHelp">
+                  </div>
+                  <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Hostel Name</label>
+                      <input type="text" formControlName="hostelName" class="form-control" id="hostelName"
+                          aria-describeddescribedby="emailHelp">
+                  </div>
+                  
+                      
+                  
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                          (click)="addStudent()">Add Student</button>
+                  </div>
+              </form>
 </mat-card>
+ </div>

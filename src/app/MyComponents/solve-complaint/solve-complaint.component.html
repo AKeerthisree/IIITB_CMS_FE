@@ -1,0 +1,36 @@
+
+<div fxLayoutAlign="center center" fxFlexFill class="main-div">
+    <mat-card fxFlex="25">
+        <mat-toolbar color="primary">ENTER STUDENT DETAILS</mat-toolbar>
+        <form [formGroup]="complaintDetail">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Complaint Message. </label>
+                <input type="text" formControlName="description" class="form-control" id="description" [(ngModel)]="complaint.description"
+                    aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Status </label>
+                <!-- <input type="text" formControlName="status" class="form-control" id="status" [(ngModel)]="complaint.status"
+                    aria-describedby="emailHelp"> -->
+                    <mat-form-field  appearance="fill">
+                        <!-- <mat-label>Status</mat-label> -->
+                        <mat-select formControlName="status" class="form-control" id="status" name="Status" [value]="complaint.status" [(ngModel)]="complaint.status">
+                            <mat-option value="Pending">Pending</mat-option>
+                            <mat-option value="Accepted">Accepted</mat-option>
+                            <mat-option value="Rejected">Rejected</mat-option>
+                            <mat-option value="Solved">Solved</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Response Message </label>
+                <input type="text" formControlName="response" class="form-control" id="response" [(ngModel)]="complaint.response"
+                    aria-describedby="emailHelp">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success" (click)="updateComplaint()"
+                    data-bs-dismiss="modal">SUBMIT </button>
+            </div>
+        </form>
+    </mat-card>
+</div>

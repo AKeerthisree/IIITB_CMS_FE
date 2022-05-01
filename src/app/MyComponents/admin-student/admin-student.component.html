@@ -1,0 +1,182 @@
+<div class="container-fluid">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Student Management System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addStudent"
+                    type="submit">Add Student</button> -->
+                <button type="submit"  class="btn btn-primary" (click)="addStudent()">ADD STUDENT</button>
+            </div>
+        </div>
+        
+        <div>
+            <button type="submit"  class="btn btn-primary" style="margin-right: 3%;" (click)="getAllStudents()">Show All</button>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="logout()">LOGOUT</button>
+      </div>
+    </nav>
+    <div class="form-group">
+        <input type="text" class="form-control search-field" placeholder="Search Here"
+        [(ngModel)]="searchText">
+    </div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Roll No</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Programme</th>
+            <th scope="col">Room No</th>
+            <th scope="col">Hostel Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let student of studentList | searchfilter: searchText">
+            <td>{{student.rollNo}}</td>
+            <td>{{student.name}}</td>
+            <td>{{student.email}}</td>
+            <td>{{student.programme}}</td> 
+            <td>{{student.roomNo}}</td>
+            <td>{{student.hostelName}}</td>
+
+            <td>
+                <!-- <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal"
+                    data-bs-target="#editStudent" (click)="editStudent(student)">Edit</button> -->
+                    <button type="submit"  class="btn btn-primary" (click)="editStudent(student)">EDIT STUDENT</button>
+                <button type="button" class="btn btn-outline-danger" (click)="deleteStudent(student)">Delete</button>
+            </td>
+
+        </tr>
+
+    </tbody>
+</table>
+
+
+
+
+<!-- Add Student Modal -->
+<div class="modal fade" id="addStudent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add new Student</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form [formGroup]="studentDetail">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">RollNo. </label>
+                        <input type="text" formControlName="rollNo" class="form-control" id="rollNo "
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Name </label>
+                        <input type="text" formControlName="name" class="form-control" id="name"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email </label>
+                        <input type="email" formControlName="email" class="form-control" id="email"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Programme</label>
+                        <input type="text" formControlName="programme" class="form-control" id="programme"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">roomNo</label>
+                        <input type="text" formControlName="roomNo" class="form-control" id="roomNo"
+                            aria-describeddescribedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Hostel Name</label>
+                        <input type="text" formControlName="hostelName" class="form-control" id="hostelName"
+                            aria-describeddescribedby="emailHelp">
+                    </div>
+                    
+                        <!-- <mat-form-field appearance="fill">
+                            <mat-label for="exampleInputEmail1" class="form-label">Role</mat-label>
+                            <mat-select formControlName="role" class="form-control" id="role" aria-describedby="emailHelp">
+                              <mat-option value="Admin">Admin</mat-option>
+                              <mat-option value="Receptionist">Receptionist</mat-option>
+                              <mat-option value="Technician">Technician</mat-option>
+                              <mat-option value="Doctor">Doctor</mat-option>
+                              <mat-option value="HIS">HIS</mat-option>
+                            </mat-select>
+                          </mat-form-field> -->
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            (click)="addStudent()">Add Student</button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Edit  Employee -->
+<div class="modal fade" id="editStudent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit employee details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form [formGroup]="studentDetail">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">RollNo. </label>
+                        <input type="text" formControlName="rollNo" class="form-control" id="rollNo "
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Name </label>
+                        <input type="text" formControlName="name" class="form-control" id="name"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email </label>
+                        <input type="email" formControlName="email" class="form-control" id="email"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Programme</label>
+                        <input type="text" formControlName="programme" class="form-control" id="programme"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">roomNo</label>
+                        <input type="text" formControlName="roomNo" class="form-control" id="roomNo"
+                            aria-describeddescribedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Hostel Name</label>
+                        <input type="text" formControlName="hostelName" class="form-control" id="hostelName"
+                            aria-describeddescribedby="emailHelp">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-outline-success" (click)="updateStudent()"
+                            data-bs-dismiss="modal">Update </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>

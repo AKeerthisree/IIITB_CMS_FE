@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Student } from '../details/Student';
 import { AdminService } from 'src/app/services/admin.service';
@@ -12,36 +12,50 @@ import { DialogData } from '../login/login.component';
   styleUrls: ['./add-student.component.css']
 })
 export class AddStudentComponent implements OnInit {
-
-  student: Student=new Student();
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  studentDetail !: FormGroup;
+  studentObj : Student = new Student();
+  studentList : Student[] = []
+  searchText : string;
+  
   constructor(
-    private router: Router,
-    private adminService:AdminService,
-    private dialog:MatDialog,
-  ) {
-    this.student=new Student();
-   }
+    private formBuilder: FormBuilder,
+    private adminService: AdminService,
+    private router:Router,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
-  }
+      this.studentDetail = this.formBuilder.group({
+        rollNo:[''],
+        name: [''],
+        password: [''],
+        email: [''],
+        programme:[''],
+        roomNo:[''],
+        hostelName:['']
+      })
+    }
 
-  saveStudentDetails()
-  {
-    this.student.password=this.student.rollNo;
-    this.adminService.saveStudent(this.student).subscribe(
-      (res)=>{
-        console.log(res);
-        this.openDialog(true);
-      },
-      err=>{
+  addStudent(){
+    console.log(this.studentDetail);
+    this.studentObj.rollNo=this.studentDetail.value.rollNo;
+    this.studentObj.name=this.studentDetail.value.name;
+    this.studentObj.email=this.studentDetail.value.email;
+    this.studentObj.password=this.studentDetail.value.rollNo;
+    this.studentObj.programme=this.studentDetail.value.programme;
+    this.studentObj.roomNo=this.studentDetail.value.roomNo;
+    this.studentObj.hostelName=this.studentDetail.value.hostelName;
+    
+    this.adminService.saveStudent(this.studentObj).subscribe(res=>{
+      console.log(res);
+      this.openDialog(true);
+    },err=>{
         console.log(err);
         this.openDialog(false);
-      }
-    )
+    });
   }
-  
+
   openDialog(response) {
+   
     if(response)
     {
       this.dialog.open(DialogElementsExampleDialog);
@@ -52,13 +66,11 @@ export class AddStudentComponent implements OnInit {
         data: {}
       });
     }
-  }
-
-  logout(){
-    this.router.navigateByUrl('/login')
+    
   }
 
 }
+
 
 @Component({
   selector: 'dialog-success',
@@ -66,12 +78,13 @@ export class AddStudentComponent implements OnInit {
 })
 export class DialogElementsExampleDialog { 
   constructor(
+    private router:Router,
     public dialogRef: MatDialogRef<DialogElementsExampleDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ){}
   close(){
     this.dialogRef.close();
-    window.location.reload();
+    this.router.navigateByUrl('/nav/adminStudent');
   }
   
 }
@@ -82,12 +95,13 @@ export class DialogElementsExampleDialog {
 })
 export class DialogUnsuccess { 
   constructor(
+    private router:Router,
     public dialogRef: MatDialogRef<DialogUnsuccess>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ){}
   close(){
     this.dialogRef.close();
-    window.location.reload();
+    this.router.navigateByUrl('/nav/adminStudent');
   }
 }
 

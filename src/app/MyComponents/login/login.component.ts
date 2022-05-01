@@ -42,24 +42,33 @@ export class LoginComponent implements OnInit {
       (data)=>{
       this.message=data
       console.log(data)
-      if(this.message){
-        console.log(this.message)
-      }
-      // if(this.message!=null){
-      //   if(this.form.role == "Admin")
-      //     this.router.navigateByUrl('/admin')
-      //   else if(this.form.role == "Receptionist")
-      //     this.router.navigateByUrl('/receivingStation')
-      //   else if(this.form.role == "Technician")
-      //     this.router.navigateByUrl('/grossingStation')
-      //   else if(this.form.role == "Doctor")
-      //     this.router.navigateByUrl('/doctorIndex')
-      //   else if(this.form.role == "HIS")
-      //     this.router.navigateByUrl('/addPatientHIS')
+      // if(this.message){
+      //   console.log(this.message);
+      //   this.router.navigate(["/studentDashboard",this.form.email]);
+
       // }
+      if(this.message!=null){
+        if(this.form.role == "Admin")
+          this.router.navigateByUrl('/nav/adminStudent')
+        else if(this.form.role == "SAC")
+          this.router.navigateByUrl('/sacComplaints')
+        else if(this.form.role == "FoodCom")
+          this.router.navigateByUrl('/foodComComplaints')
+        else if(this.form.role == "PlaceCom")
+          this.router.navigateByUrl('/placeComComplaint')
+        else if(this.form.role == "Hostel")
+          this.router.navigateByUrl('/hostelComplaint')
+        else if(this.form.role == "Exam")
+          this.router.navigateByUrl('/examComplaints')
+        else if(this.form.role == "Sports")
+          this.router.navigateByUrl('/sportsComplaint')
+        
+      }
         
       else
-        console.log("failed")
+      {  console.log("failed");
+      this.openDialog(false);
+    }
 
       
     },

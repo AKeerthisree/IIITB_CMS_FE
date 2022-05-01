@@ -1,169 +1,50 @@
-<div class="container-fluid">
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Employee Management System</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addEmployee"
-                    type="submit">Add Employee</button>
-            </div>
-        </div>
-        
-        <div>
-            <button type="submit"  class="btn btn-primary" style="margin-right: 3%;" (click)="getAllEmployee()">Show All</button>
-        </div>
-        <div>
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="logout()">LOGOUT</button>
+<mat-toolbar class="mat-elevation-z8">
+    <button
+      mat-icon-button
+      *ngIf="sidenav.mode === 'over'"
+      (click)="sidenav.toggle()"
+    >
+      <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
+      <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+    </button>
+    Responsive side navigation
+  </mat-toolbar>
+  
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+      <img
+        class="avatar mat-elevation-z8"
+        src="https://source.unsplash.com/c_GmwfHBDzk/200x200"
+      />
+  
+      <h4 class="name">John Smith</h4>
+      <p class="designation">Software Engineer</p>
+  
+      <mat-divider></mat-divider>
+  
+      <button mat-button class="menu-button" routerLink="/admin/adminEmployees">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </button>
+      <button mat-button class="menu-button" routerLink="/profile">
+        <mat-icon>person</mat-icon>
+        <span>Profile</span>
+      </button>
+      <button mat-button class="menu-button" routerLink="/about">
+        <mat-icon>info</mat-icon>
+        <span>About</span>
+      </button>
+  
+      <mat-divider></mat-divider>
+  
+      <button mat-button class="menu-button" routerLink="/help">
+        <mat-icon>help</mat-icon>
+        <span>Help</span>
+      </button>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="content mat-elevation-z8">
+        <router-outlet></router-outlet>
       </div>
-    </nav>
-    <div class="form-group">
-        <input type="text" class="form-control search-field" placeholder="Search Here"
-        [(ngModel)]="searchText">
-    </div>
-
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th scope="col">Employee ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <!-- <th scope="col">Phone</th> -->
-            <th scope="col">Role</th>
-            <th scope="col">Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let employee of empList | searchfilter: searchText">
-            <td>{{employee.id}}</td>
-            <td>{{employee.name}}</td>
-            <td>{{employee.email}}</td>
-            <!-- <td>{{employee.phone}}</td> -->
-            <td>{{employee.role}}</td>
-
-            <td>
-                <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal"
-                    data-bs-target="#editEmployee" (click)="editEmployee(employee)">Edit</button>
-                <button type="button" class="btn btn-outline-danger" (click)="deleteEmployee(employee)">Delete</button>
-            </td>
-
-        </tr>
-
-    </tbody>
-</table>
-
-
-
-
-<!-- Add Employee Modal -->
-<div class="modal fade" id="addEmployee" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add new Employee</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-
-                <form [formGroup]="empDetail">
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">ID </label>
-                        <input type="text" formControlName="id" class="form-control" id="id"
-                            aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Name </label>
-                        <input type="text" formControlName="name" class="form-control" id="name"
-                            aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Email </label>
-                        <input type="email" formControlName="email" class="form-control" id="email"
-                            aria-describedby="emailHelp">
-                    </div>
-                    <!-- <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">phone</label>
-                        <input type="text" formControlName="phone" class="form-control" id="phone"
-                            aria-describedby="emailHelp">
-                    </div> -->
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">role</label>
-                        <input type="text" formControlName="role" class="form-control" id="role"
-                            aria-describeddescribedby="emailHelp">
-                    </div>
-                    
-                        <!-- <mat-form-field appearance="fill">
-                            <mat-label for="exampleInputEmail1" class="form-label">Role</mat-label>
-                            <mat-select formControlName="role" class="form-control" id="role" aria-describedby="emailHelp">
-                              <mat-option value="Admin">Admin</mat-option>
-                              <mat-option value="Receptionist">Receptionist</mat-option>
-                              <mat-option value="Technician">Technician</mat-option>
-                              <mat-option value="Doctor">Doctor</mat-option>
-                              <mat-option value="HIS">HIS</mat-option>
-                            </mat-select>
-                          </mat-form-field> -->
-                    
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            (click)="addEmployee()">Add employee</button>
-                    </div>
-                </form>
-
-            </div>
-
-        </div>
-    </div>
-</div>
-<!-- Edit  Employee -->
-<div class="modal fade" id="editEmployee" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit employee details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-
-                <form [formGroup]="empDetail">
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">ID </label>
-                        <input type="text" formControlName="id" class="form-control" id="id"
-                            aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Name </label>
-                        <input type="text" formControlName="name" class="form-control" id="name"
-                            aria-describedby="emailHelp">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Email </label>
-                        <input type="email" formControlName="email" class="form-control" id="email"
-                            aria-describedby="emailHelp">
-                    </div>
-                    <!-- <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Phone </label>
-                        <input type="text" formControlName="phone" class="form-control" id="email"
-                            aria-describedby="emailHelp">
-                    </div> -->
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Role </label>
-                        <input type="text" formControlName="role" class="form-control" id="email"
-                            aria-describedby="emailHelp">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-outline-success" (click)="updateEmployee()"
-                            data-bs-dismiss="modal">Update </button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-</div>
-</div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

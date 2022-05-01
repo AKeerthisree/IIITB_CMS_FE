@@ -1,0 +1,44 @@
+<div fxLayoutAlign="center center" fxFlexFill class="main-div">
+    <mat-card fxFlex="25">
+        <mat-toolbar color="primary">EDIT STUDENT DETAILS</mat-toolbar>
+
+                <form [formGroup]="studentDetail">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">RollNo. </label>
+                        <input type="text" formControlName="rollNo" class="form-control" id="rollNo " [(ngModel)]="student.rollNo"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Name </label>
+                        <input type="text" formControlName="name" class="form-control" id="name" [(ngModel)]="student.name"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email </label>
+                        <input type="email" formControlName="email" class="form-control" id="email" [(ngModel)]="student.email"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Programme</label>
+                        <input type="text" formControlName="programme" class="form-control" id="programme" [(ngModel)]="student.programme"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">roomNo</label>
+                        <input type="text" formControlName="roomNo" class="form-control" id="roomNo" [(ngModel)]="student.roomNo"
+                            aria-describeddescribedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Hostel Name</label>
+                        <input type="text" formControlName="hostelName" class="form-control" id="hostelName" [(ngModel)]="student.hostelName"
+                            aria-describeddescribedby="emailHelp">
+                    </div>
+                    <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                        <button type="button" class="btn btn-outline-success" (click)="updateStudent()"
+                            data-bs-dismiss="modal">Update </button>
+                    </div>
+                </form>
+
+           </mat-card>
+</div>

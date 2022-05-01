@@ -1,0 +1,30 @@
+<div class="imgdiv">  
+    <img src="../../assets/iiitb.jpg" class="img1" alt="cinque terre"> 
+    <div class="topleft"><span>IIIT</span> Bangalore</div> 
+    <div class="topmiddle">COMPLAINT MANAGEMENT SYSTEM</div>
+  </div> 
+  
+<div fxLayoutAlign="center center" fxFlexFill class="main-div">
+    <mat-card fxFlex="25">
+        <mat-toolbar color="primary">Student Login Page</mat-toolbar>
+        <form (ngSubmit)="onSubmit()" fxLayoutAlign="stretch" fxLayout = "column" class="login-form">
+
+            
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Student ID</mat-label>
+                <input type="text" matInput  placeholder="Enter Student ID" name="studentID" [(ngModel)]="form.studentID">
+              </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Enter your password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" name="password" [(ngModel)]="form.password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+            <br>
+            
+            <button mat-raised-button type="submit">Login </button>
+        </form>
+    </mat-card>
+</div>
