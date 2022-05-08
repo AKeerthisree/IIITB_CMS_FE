@@ -10,7 +10,7 @@ import { Complaint } from '../MyComponents/details/Complaint';
 })
 export class AdminService {
 
-  serverUrl = 'http://localhost:8030/';
+  serverUrl = 'http://localhost:8050/';
   options = {
     responseType: 'json',
   };

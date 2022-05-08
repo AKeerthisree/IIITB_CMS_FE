@@ -9,7 +9,7 @@ import { Student } from '../MyComponents/details/Student';
 })
 export class StudentDashboardService {
 
-  serverUrl = 'http://localhost:8030/';
+  serverUrl = 'http://localhost:8050/';
   options = {
     responseType: 'json',
   };

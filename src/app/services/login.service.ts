@@ -6,7 +6,7 @@ import {HttpClient, HttpResponse} from "@angular/common/http";
 })
 export class LoginService {
 
-  serverUrl = 'http://localhost:8030/';
+  serverUrl = 'http://localhost:8050/';
   options = {
     responseType: 'json',
   };
