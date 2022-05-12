@@ -56,7 +56,7 @@ export class EditEmpployeeComponent implements OnInit {
     this.empObj.name = this.empDetail.value.name;
     this.empObj.email = this.empDetail.value.email;
     this.empObj.role = this.empDetail.value.role;
-    this.empObj.password=this.empDetail.value.password;
+    this.empObj.password=this.employee.password;
   
     this.adminService.updateEmployee(this.empObj).subscribe(res=>{
       console.log(res);

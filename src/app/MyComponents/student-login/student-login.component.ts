@@ -39,9 +39,12 @@ export class StudentLoginComponent implements OnInit {
         console.log(this.message);
         this.router.navigate(["/studentDashboard",this.form.studentID]);
 
+
       }
       else
-        console.log("failed")
+      {  console.log("failed");
+        this.openDialog(false);
+    }
 
       
     },

@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
     resp.subscribe(
       (data)=>{
       this.message=data
+      console.log("HI")
       console.log(data)
       // if(this.message){
       //   console.log(this.message);

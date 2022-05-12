@@ -55,7 +55,7 @@ export class EditStudentComponent implements OnInit {
     this.studentObj.rollNo = this.studentDetail.value.rollNo;
     this.studentObj.name = this.studentDetail.value.name;
     this.studentObj.email = this.studentDetail.value.email;
-    this.studentObj.password = this.studentDetail.value.password;
+    this.studentObj.password = this.student.password;
     this.studentObj.programme=this.studentDetail.value.programme;
     this.studentObj.roomNo=this.studentDetail.value.roomNo;
     this.studentObj.hostelName=this.studentDetail.value.hostelName;
