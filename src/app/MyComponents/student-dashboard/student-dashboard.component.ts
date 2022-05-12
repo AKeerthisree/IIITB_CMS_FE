@@ -75,7 +75,7 @@ export class StudentDashboardComponent implements OnInit {
   addComplaint(){
     console.log(this.complaintDetail);
 
-    //this.complaintObj.id=this.complaintDetail.value.id;
+    this.complaintObj.id=this.complaintDetail.value.id;
     
     this.complaintObj.timeStamp=this.complaintDetail.value.timeStamp;
     this.complaintObj.status=this.complaintDetail.value.status;
@@ -121,7 +121,7 @@ updateComplaint(){
   this.complaintObj.timeStamp=this.complaintDetail.value.timeStamp;
   this.complaintObj.description=this.complaintDetail.value.description;
   this.complaintObj.status=this.complaintDetail.value.status;
-  this.complaintObj.complaintType=this.complaintDetail.value.type;
+  this.complaintObj.complaintType=this.complaintDetail.value.complaintType;
   this.complaintObj.response=this.complaintDetail.value.response;
   console.log(this.complaintObj);
   this.studentDashboardService.updateComplaint_Student(this.complaintObj).subscribe(res=>{
